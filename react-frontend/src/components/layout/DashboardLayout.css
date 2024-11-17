@@ -1,0 +1,103 @@
+.dashboard-layout {
+  display: flex;
+  height: 100vh;
+  background-color: var(--color-bg-light);
+}
+
+.sidebar {
+  width: 250px;
+  background-color: var(--color-primary);
+  color: var(--color-text-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-logo {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: var(--color-text-primary);
+  text-align: center;
+  width: 100%;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.sidebar-menu li {
+  margin-bottom: 15px;
+}
+
+.sidebar-menu li a {
+  display: block;
+  padding: 10px 15px;
+  color: var(--color-bg-light);
+  background-color: var(--color-primary);
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.sidebar-menu li a:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateX(5px);
+}
+
+.sidebar-menu li a:active {
+  background-color: var(--color-primary-hover);
+  transform: translateX(0);
+}
+
+.sidebar-menu li a:focus {
+  outline: 2px solid var(--color-primary-hover);
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 20px;
+  background-color: var(--color-bg-contrast);
+  color: var(--color-text-primary);
+  overflow-y: auto;
+}
+
+.dashboard-content h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: var(--color-primary);
+}
+
+.dashboard-content p {
+  color: var(--color-text-secondary);
+}
+
+.return-to-site {
+  margin-top: auto;
+  padding-top: 20px;
+  width: 100%;
+}
+
+.return-to-site a {
+  display: block;
+  text-align: center;
+  padding: 10px 15px;
+  color: var(--color-primary);
+  background-color: var(--color-bg-light);
+  border: 1px solid var(--color-primary);
+  border-radius: 5px;
+  font-size: 16px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.return-to-site a:hover {
+  background-color: var(--color-primary);
+  color: var(--color-bg-light);
+}

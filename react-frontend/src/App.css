@@ -1,0 +1,90 @@
+/* Global color variables */
+:root {
+  --color-bg-light: #f9fafb; /* gray1 */
+  --color-bg-contrast: #e5e7eb; /* gray3 */
+  --color-text-primary: #18181b; /* gray12 */
+  --color-text-secondary: #4b5563; /* gray9 */
+  --color-primary: #7c3aed; /* violet9 */
+  --color-primary-hover: #6d28d9; /* violet8 */
+  --color-success: #22c55e; /* green9 */
+  --color-error: #ef4444; /* red9 */
+  --color-warning: #f59e0b; /* amber9 */
+}
+
+[data-theme="dark"] {
+  --color-bg-light: #18181b; /* gray12 */
+  --color-bg-contrast: #4b5563; /* gray9 */
+  --color-text-primary: #f9fafb; /* gray1 */
+  --color-text-secondary: #e5e7eb; /* gray3 */
+  --color-primary: #c084fc; /* violet11 */
+  --color-primary-hover: #a855f7; /* violet10 */
+}
+
+/* Reset */
+body,
+h1,
+h2,
+ul,
+li,
+button {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--color-bg-light);
+  color: var(--color-text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a {
+  text-decoration: none;
+  white-space: nowrap;
+  color: var(--color-primary);
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  background-color: var(--color-primary);
+  color: var(--color-text-primary);
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--color-primary-hover);
+  color: var(--color-bg-light);
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-primary);
+  transition: color 0.3s ease;
+}
+
+.theme-toggle:hover {
+  color: var(--color-primary-hover);
+}
+
+/* Content */
+
+.content {
+  margin-top: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

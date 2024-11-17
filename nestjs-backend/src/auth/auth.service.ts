@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from './dto/create-user.dto';
 import { Model } from 'mongoose';
@@ -14,9 +14,12 @@ export class AuthService {
     @InjectModel('User') private readonly userModel: Model<User>,
   ) {}
 
-  async register(createUserDto: CreateUserDto) {
+  async register(createUserDto: CreateUserDto, res: any) {
     if (await this.userModel.findOne({ email: createUserDto.email })) {
-      return 'User already exists';
+      return new HttpException(
+        { error: 'User already exists' },
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
     const saltRounds = 10;
@@ -31,13 +34,23 @@ export class AuthService {
 
     const payload = { email: user.email, sub: user._id };
     const token = this.jwtService.sign(payload);
-    return { accessToken: token };
+
+    res.cookie('jwt', token, {
+      httpOnly: true,
+      secure: false,
+      maxAge: 1000 * 60 * 60 * 1,
+    });
+
+    return new HttpException({ accessToken: token }, HttpStatus.CREATED);
   }
 
-  async login(loginUserDto: LoginUserDto) {
+  async login(loginUserDto: LoginUserDto, res: any) {
     const user = await this.userModel.findOne({ email: loginUserDto.email });
     if (!user) {
-      return 'User not found';
+      return new HttpException(
+        { error: 'User not found' },
+        HttpStatus.NOT_FOUND,
+      );
     }
 
     const isPasswordMatch = await bcrypt.compare(
@@ -45,15 +58,26 @@ export class AuthService {
       user.password,
     );
     if (!isPasswordMatch) {
-      return 'Invalid password';
+      return new HttpException(
+        { error: 'Invalid credentials' },
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
     const payload = { email: user.email, sub: user._id };
     const token = this.jwtService.sign(payload);
-    return { accessToken: token };
+
+    res.cookie('jwt', token, {
+      httpOnly: true,
+      secure: false,
+      maxAge: 1000 * 60 * 60 * 1,
+    });
+
+    return new HttpException({ accessToken: token }, HttpStatus.OK);
   }
 
-  async validateUser(payload: any): Promise<any> {
-    return { userId: payload.sub, email: payload.email };
+  async logout(res: any) {
+    res.clearCookie('jwt');
+    return new HttpException({ message: 'Logged out' }, HttpStatus.OK);
   }
 }
