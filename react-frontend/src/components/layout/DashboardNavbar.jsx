@@ -1,11 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./DashboardLayout.css";
+import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
+import "./DashboardNavbar.css";
 
-const DashboardLayout = ({ children }) => (
+const DashboardNavbar = ({ children }) => (
   <div className="dashboard-layout">
     <aside className="sidebar">
-      <div className="sidebar-logo">Cohelio Admin</div>
+      <div className="sidebar-logo">
+        <Link to="/dashboard/">Cohelio Admin</Link>
+        <ThemeSwitcher />
+      </div>
       <ul className="sidebar-menu">
         <li>
           <Link to="/dashboard/users">Users</Link>
@@ -22,4 +26,4 @@ const DashboardLayout = ({ children }) => (
   </div>
 );
 
-export default DashboardLayout;
+export default DashboardNavbar;

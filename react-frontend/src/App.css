@@ -81,10 +81,116 @@ button:hover {
 }
 
 /* Content */
-
 .content {
   margin-top: 15px;
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+/* Table styles */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th,
+.table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid var(--color-bg-contrast);
+}
+
+.table th {
+  background-color: var(--color-bg-contrast);
+  color: var(--color-text-primary);
+}
+
+.table td {
+  background-color: var(--color-bg-light);
+  color: var(--color-text-secondary);
+}
+
+/* Button styles */
+.td-btn {
+  display: flex;
+}
+.btn {
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.btn-danger {
+  background-color: var(--color-error);
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: darkred;
+}
+
+/* Pagination styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 5px 15px;
+  margin: 0 10px;
+  font-size: 16px;
+  background-color: var(--color-bg-contrast);
+  color: var(--color-text-primary);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination button:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.pagination button:disabled {
+  background-color: var(--color-bg-contrast);
+  color: var(--color-text-secondary);
+  cursor: not-allowed;
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .table th,
+[data-theme="dark"] .table td {
+  background-color: var(--color-bg-contrast);
+  color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-text-primary);
+}
+
+[data-theme="dark"] .btn-danger {
+  background-color: var(--color-error);
+  color: var(--color-text-primary);
+}
+
+[data-theme="dark"] .pagination button {
+  background-color: var(--color-bg-contrast);
+  color: var(--color-text-primary);
 }

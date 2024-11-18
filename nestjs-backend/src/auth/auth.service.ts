@@ -32,7 +32,7 @@ export class AuthService {
     const user = new this.userModel(createUserDto);
     await user.save();
 
-    const payload = { email: user.email, sub: user._id };
+    const payload = { sub: user._id, role: user.role };
     const token = this.jwtService.sign(payload);
 
     res.cookie('jwt', token, {
@@ -41,7 +41,7 @@ export class AuthService {
       maxAge: 1000 * 60 * 60 * 1,
     });
 
-    return new HttpException({ accessToken: token }, HttpStatus.CREATED);
+    return new HttpException({ client: payload }, HttpStatus.CREATED);
   }
 
   async login(loginUserDto: LoginUserDto, res: any) {
@@ -64,7 +64,7 @@ export class AuthService {
       );
     }
 
-    const payload = { email: user.email, sub: user._id };
+    const payload = { sub: user._id, role: user.role };
     const token = this.jwtService.sign(payload);
 
     res.cookie('jwt', token, {
@@ -73,11 +73,15 @@ export class AuthService {
       maxAge: 1000 * 60 * 60 * 1,
     });
 
-    return new HttpException({ accessToken: token }, HttpStatus.OK);
+    return new HttpException({ client: payload }, HttpStatus.OK);
   }
 
   async logout(res: any) {
     res.clearCookie('jwt');
     return new HttpException({ message: 'Logged out' }, HttpStatus.OK);
+  }
+
+  async getUserByToken(req: any) {
+    return new HttpException({ client: req.user }, HttpStatus.OK);
   }
 }

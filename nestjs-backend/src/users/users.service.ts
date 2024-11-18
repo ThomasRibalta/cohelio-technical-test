@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable, HttpStatus } from '@nestjs/common';
 import { User } from './schema/user.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
@@ -11,11 +11,24 @@ export class UsersService {
     return await this.userModel.findById(id);
   }
 
-  async getUsers({ page, limit }) {
-    return await this.userModel
+  async getUsers({ page }) {
+    if (!page || page < 1) {
+      page = 1;
+    }
+    let clients = await this.userModel
       .find()
-      .skip((page - 1) * limit)
-      .limit(limit);
+      .skip((page - 1) * 10)
+      .limit(10)
+      .select('-password');
+
+    let currentPage = page;
+    let totalClients = await this.userModel.countDocuments();
+    let totalPages = Math.ceil(totalClients / 10);
+
+    return new HttpException(
+      { clients: clients, currentPage: currentPage, totalPages: totalPages },
+      HttpStatus.OK,
+    );
   }
 
   async updateUserById(id: string, updateUserDto: any) {

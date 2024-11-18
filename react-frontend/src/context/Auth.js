@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
@@ -9,9 +9,10 @@ const AuthProvider = ({ children }) => {
     isAuthenticated: storedAuth,
     user: null,
   });
+  const [loading, setLoading] = useState(true);
 
-  const login = (jwt_decoded) => {
-    setAuth({ isAuthenticated: true, user: jwt_decoded });
+  const login = (client) => {
+    setAuth({ isAuthenticated: true, user: client });
     localStorage.setItem("isAuthenticated", "true");
   };
 
@@ -20,9 +21,35 @@ const AuthProvider = ({ children }) => {
     localStorage.setItem("isAuthenticated", "false");
   };
 
+  useEffect(() => {
+    if (!Auth.isAuthenticated) {
+      setLoading(false);
+      return;
+    }
+
+    fetch("http://localhost:3030/auth/user", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.response?.client) {
+          login(data.response.client);
+        } else {
+          logout();
+        }
+      })
+      .catch(() => {
+        logout();
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [Auth.isAuthenticated]);
+
   return (
     <AuthContext.Provider value={{ Auth, login, logout }}>
-      {children}
+      {!loading ? children : <div>Chargement...</div>}
     </AuthContext.Provider>
   );
 };

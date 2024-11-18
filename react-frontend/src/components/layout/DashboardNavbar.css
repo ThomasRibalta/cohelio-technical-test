@@ -1,25 +1,28 @@
 .dashboard-layout {
   display: flex;
   height: 100vh;
-  background-color: var(--color-bg-light);
+  background-color: var(--color-bg-contrast);
 }
 
 .sidebar {
+  position: fixed;
+  height: 100%;
   width: 250px;
-  background-color: var(--color-primary);
+  background-color: var(--color-bg-contrast);
   color: var(--color-text-primary);
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: stretch;
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 }
 
 .sidebar-logo {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
-  color: var(--color-text-primary);
+  color: var(--color-primary);
   text-align: center;
   width: 100%;
 }
@@ -33,27 +36,29 @@
 
 .sidebar-menu li {
   margin-bottom: 15px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .sidebar-menu li a {
   display: block;
   padding: 10px 15px;
-  color: var(--color-bg-light);
-  background-color: var(--color-primary);
+  color: var(--color-text-primary);
+  background-color: transparent;
   text-decoration: none;
   font-size: 16px;
   border-radius: 5px;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .sidebar-menu li a:hover {
-  background-color: var(--color-primary-hover);
-  transform: translateX(5px);
+  background-color: var(--color-primary);
 }
 
 .sidebar-menu li a:active {
   background-color: var(--color-primary-hover);
-  transform: translateX(0);
 }
 
 .sidebar-menu li a:focus {
@@ -63,9 +68,10 @@
 .dashboard-content {
   flex: 1;
   padding: 20px;
-  background-color: var(--color-bg-contrast);
+  background-color: var(--color-bg-light);
   color: var(--color-text-primary);
   overflow-y: auto;
+  margin-left: 250px;
 }
 
 .dashboard-content h1 {

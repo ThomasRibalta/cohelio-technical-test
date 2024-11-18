@@ -4,6 +4,9 @@ import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 import "./DefaultNavbar.css";
 
 const DefaultNavbar = ({ Auth }) => {
+  if (!Auth) {
+    return null;
+  }
   return (
     <nav className="navbar">
       <div className="navbar-left">
@@ -13,8 +16,8 @@ const DefaultNavbar = ({ Auth }) => {
         <Link to="/" className="navbar-link">
           Home
         </Link>
-        <Link to="/reviews" className="navbar-link">
-          Reviews
+        <Link to="/notice" className="navbar-link">
+          Notice
         </Link>
       </div>
 

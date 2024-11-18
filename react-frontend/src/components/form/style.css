@@ -37,6 +37,21 @@ label {
   color: var(--color-text-secondary);
 }
 
+/* select */
+
+select {
+  width: 100%;
+  padding: 14px 16px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid var(--color-bg-contrast);
+  background-color: var(--color-bg-contrast);
+  color: var(--color-text-primary);
+  font-size: 16px;
+  transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+  box-sizing: border-box;
+}
+
 /* Submit button */
 button {
   background-color: var(--color-primary);
