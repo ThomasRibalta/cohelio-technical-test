@@ -2,12 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import TableWithPaginationAndSorting from "../components/TableWithPaginationAndSorting/TableWithPaginationAndSorting";
 
-const Users = () => {
+const Reviews = () => {
   const navigate = useNavigate();
 
-  const fetchUsers = async (page, sortType) => {
+  const fetchReviews = async (page, sortType) => {
     const response = await fetch(
-      `http://localhost:3030/users?page=${page}&sortby=${sortType.key}&order=${sortType.order}`,
+      `http://localhost:3030/reviews?page=${page}&sortby=${sortType.key}&order=${sortType.order}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -17,41 +17,37 @@ const Users = () => {
     if (response.status !== 200) navigate("/dashboard");
     const data = await response.json();
     return {
-      items: data.response.clients,
+      items: data.response.reviews,
       totalPages: data.response.totalPages,
     };
   };
 
-  const userColumns = [
-    { header: "Username", accessor: "username", sortable: true },
-    { header: "Email", accessor: "email", sortable: true },
-    { header: "Role", accessor: "role", sortable: false },
+  const reviewColumns = [
+    { header: "Email", accessor: "client.email", sortable: true },
+    { header: "Service", accessor: "type", sortable: true },
+    { header: "Content", accessor: "content", sortable: true },
+    { header: "Rating", accessor: "rate", sortable: true },
   ];
 
-  const userActions = [
-    {
-      label: "Edit",
-      onClick: (id) => console.log(`Editing user ${id}`),
-      className: "btn btn-primary btn-sm",
-    },
+  const reviewActions = [
     {
       label: "Delete",
-      onClick: (id) => console.log(`Deleting user ${id}`),
+      onClick: (id) => console.log(`Deleting review ${id}`),
       className: "btn btn-danger btn-sm",
     },
   ];
 
   return (
     <div className="container">
-      <h2>Users</h2>
+      <h2>Reviews</h2>
       <TableWithPaginationAndSorting
-        columns={userColumns}
-        fetchData={fetchUsers}
+        columns={reviewColumns}
+        fetchData={fetchReviews}
         dataKey="_id"
-        actions={userActions}
+        actions={reviewActions}
       />
     </div>
   );
 };
 
-export default Users;
+export default Reviews;

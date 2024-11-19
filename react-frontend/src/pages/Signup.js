@@ -47,7 +47,7 @@ const SignupForm = () => {
       .then((data) => {
         if (data.status === 201 || data.status === 200) {
           login(data.response.client);
-          navigate("/notice");
+          navigate("/review");
         } else {
           navigate("/");
         }

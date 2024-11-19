@@ -6,7 +6,11 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  async getUsers(@Query('page') page = 1) {
-    return await this.usersService.getUsers({ page });
+  async getUsers(
+    @Query('page') page = 1,
+    @Query('sortby') sortby = 'id',
+    @Query('order') order = 'asc',
+  ) {
+    return await this.usersService.getUsers({ page, sortby, order });
   }
 }

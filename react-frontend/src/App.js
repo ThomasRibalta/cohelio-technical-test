@@ -2,7 +2,8 @@ import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import LoginForm from "./pages/Login";
 import SignupForm from "./pages/Signup";
-import NoticeForm from "./pages/Notice";
+import ReviewForm from "./pages/Review";
+import Home from "./pages/Home";
 import Users from "./pages/Users";
 import ProtectedRoute from "./components/global/ProtectedRoute";
 import { useAuth } from "./context/Auth";
@@ -11,8 +12,7 @@ import DefaultNavbar from "./components/layout/DefaultNavbar";
 import DashboardNavbar from "./components/layout/DashboardNavbar";
 import "./App.css";
 import AdminRoute from "./components/global/AdminRoute";
-
-const Home = () => <h2>Home</h2>;
+import Reviews from "./pages/Reviews";
 
 function App() {
   const { Auth } = useAuth();
@@ -34,7 +34,7 @@ function App() {
               }
             />
             <Route path="/dashboard/users" element={<Users />} />
-            <Route path="/dashboard/reviews" element={"salut"} />
+            <Route path="/dashboard/reviews" element={<Reviews />} />
             <Route path="/dashboard/*" element={<h2>Page Not Found</h2>} />
           </Routes>
         </DashboardNavbar>
@@ -47,10 +47,10 @@ function App() {
               <Route path="/login" element={<LoginForm />} />
               <Route path="/signup" element={<SignupForm />} />
               <Route
-                path="/notice"
+                path="/review"
                 element={
                   <ProtectedRoute Auth={Auth}>
-                    <NoticeForm />
+                    <ReviewForm />
                   </ProtectedRoute>
                 }
               />

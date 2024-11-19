@@ -41,7 +41,7 @@ const LoginForm = () => {
       .then((data) => {
         if (data.status === 201 || data.status === 200) {
           login(data.response.client);
-          navigate("/notice");
+          navigate("/review");
         } else {
           navigate("/");
         }
@@ -51,7 +51,11 @@ const LoginForm = () => {
       });
   };
 
-  return <Form fields={fields} onSubmit={handleSubmit} buttonLabel="Login" />;
+  return (
+    <>
+      <Form fields={fields} onSubmit={handleSubmit} buttonLabel="Login" />
+    </>
+  );
 };
 
 export default LoginForm;

@@ -16,8 +16,8 @@ const DefaultNavbar = ({ Auth }) => {
         <Link to="/" className="navbar-link">
           Home
         </Link>
-        <Link to="/notice" className="navbar-link">
-          Notice
+        <Link to="/review" className="navbar-link">
+          Review
         </Link>
       </div>
 

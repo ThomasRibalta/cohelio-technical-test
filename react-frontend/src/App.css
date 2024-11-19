@@ -1,38 +1,43 @@
-/* Global color variables */
+/* Variables de couleurs globales */
 :root {
-  --color-bg-light: #f9fafb; /* gray1 */
-  --color-bg-contrast: #e5e7eb; /* gray3 */
-  --color-text-primary: #18181b; /* gray12 */
-  --color-text-secondary: #4b5563; /* gray9 */
-  --color-primary: #7c3aed; /* violet9 */
-  --color-primary-hover: #6d28d9; /* violet8 */
-  --color-success: #22c55e; /* green9 */
-  --color-error: #ef4444; /* red9 */
-  --color-warning: #f59e0b; /* amber9 */
+  --color-bg-light: #f9fafb; /* gris clair */
+  --color-bg-contrast: #e5e7eb; /* gris moyen */
+  --color-text-primary: #18181b; /* gris foncé */
+  --color-text-secondary: #4b5563; /* gris moyen clair */
+  --color-primary: #7c3aed; /* violet */
+  --color-primary-hover: #6d28d9; /* violet foncé */
+  --color-success: #22c55e; /* vert */
+  --color-error: #ef4444; /* rouge */
+  --color-error-hover: #dc2626; /* rouge foncé */
+  --color-warning: #f59e0b; /* amber */
+  --color-warning-hover: #d97706; /* amber foncé */
 }
 
 [data-theme="dark"] {
-  --color-bg-light: #18181b; /* gray12 */
-  --color-bg-contrast: #4b5563; /* gray9 */
-  --color-text-primary: #f9fafb; /* gray1 */
-  --color-text-secondary: #e5e7eb; /* gray3 */
-  --color-primary: #c084fc; /* violet11 */
-  --color-primary-hover: #a855f7; /* violet10 */
+  --color-bg-light: #18181b; /* gris foncé */
+  --color-bg-contrast: #4b5563; /* gris moyen clair */
+  --color-text-primary: #f9fafb; /* gris clair */
+  --color-text-secondary: #e5e7eb; /* gris moyen */
+  --color-primary: #c084fc; /* violet clair */
+  --color-primary-hover: #a855f7; /* violet encore plus clair */
 }
 
-/* Reset */
-body,
-h1,
-h2,
-ul,
-li,
-button {
+/* Reset des marges et du padding */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Global styles */
+/* Styles globaux */
+
+html {
+  font-size: 90%;
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: Arial, sans-serif;
   background-color: var(--color-bg-light);
@@ -42,7 +47,6 @@ body {
 
 a {
   text-decoration: none;
-  white-space: nowrap;
   color: var(--color-primary);
   transition: color 0.3s ease;
 }
@@ -61,136 +65,127 @@ button {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-button:hover {
-  background-color: var(--color-primary-hover);
-  color: var(--color-bg-light);
+/* Styles pour le Swiper */
+
+.container {
+  max-width: 124rem;
+  padding: 4rem 1rem;
+  margin: 0 auto;
 }
 
-/* Theme toggle button */
-.theme-toggle {
-  font-size: 1.5rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--color-primary);
-  transition: color 0.3s ease;
+.heading {
+  padding: 1rem 0;
+  font-size: 3.5rem;
+  text-align: center;
 }
 
-.theme-toggle:hover {
-  color: var(--color-primary-hover);
+.swiper_container {
+  overflow: hidden;
+  height: 46rem;
+  padding: 2rem 0;
 }
 
-/* Content */
-.content {
-  margin-top: 15px;
-  width: 100%;
+.swiper-slide {
+  width: 50%;
+  height: 36rem;
+  position: relative;
+}
+
+.swiper-slide-shadow-left,
+.swiper-slide-shadow-right {
+  display: none;
+}
+
+.slider-controler {
+  position: relative;
+  bottom: 2rem;
   display: flex;
-  justify-content: center;
-}
-
-/* Table styles */
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-.table th,
-.table td {
-  padding: 10px;
-  text-align: left;
-  border: 1px solid var(--color-bg-contrast);
-}
-
-.table th {
-  background-color: var(--color-bg-contrast);
-  color: var(--color-text-primary);
-}
-
-.table td {
-  background-color: var(--color-bg-light);
-  color: var(--color-text-secondary);
-}
-
-/* Button styles */
-.td-btn {
-  display: flex;
-}
-.btn {
-  padding: 5px 10px;
-  font-size: 14px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.btn-primary {
-  background-color: var(--color-primary);
-  color: white;
-}
-
-.btn-primary:hover {
-  background-color: var(--color-primary-hover);
-}
-
-.btn-danger {
-  background-color: var(--color-error);
-  color: white;
-}
-
-.btn-danger:hover {
-  background-color: darkred;
-}
-
-/* Pagination styles */
-.pagination {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  justify-content: center;
 }
 
-.pagination button {
-  padding: 5px 15px;
-  margin: 0 10px;
-  font-size: 16px;
-  background-color: var(--color-bg-contrast);
+.slider-controler .swiper-button-next {
+  left: 58% !important;
+  transform: translateX(-58%) !important;
+}
+
+@media (max-width: 990px) {
+  .slider-controler .swiper-button-next {
+    left: 70% !important;
+    transform: translateX(-70%) !important;
+  }
+}
+
+@media (max-width: 450px) {
+  .slider-controler .swiper-button-next {
+    left: 80% !important;
+    transform: translateX(-80%) !important;
+  }
+}
+
+@media (max-width: 990px) {
+  .slider-controler .swiper-button-prev {
+    left: 30% !important;
+    transform: translateX(-30%) !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .swiper_container {
+    height: 47rem;
+  }
+
+  .swiper-slide {
+    width: 28rem !important;
+    height: 36rem !important;
+  }
+}
+
+@media (max-width: 450px) {
+  .slider-controler .swiper-button-prev {
+    left: 20% !important;
+    transform: translateX(-20%) !important;
+  }
+}
+
+.slider-controler .slider-arrow {
+  background: var(--color-bg-light);
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  left: 42%;
+  transform: translateX(-42%);
+  filter: drop-shadow(0px 8px 24px rgba(18, 28, 53, 0.1));
+}
+
+.slider-controler .slider-arrow ion-icon {
+  font-size: 2rem;
   color: var(--color-text-primary);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
 }
 
-.pagination button:hover {
+.slider-controler .slider-arrow::after {
+  content: "";
+}
+
+.swiper-pagination {
+  position: relative;
+  bottom: -1rem;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: var(--color-primary);
+  font-size: 1.5rem;
+}
+
+.swiper-pagination-bullet {
   background-color: var(--color-primary);
-  color: white;
 }
 
-.pagination button:disabled {
-  background-color: var(--color-bg-contrast);
-  color: var(--color-text-secondary);
-  cursor: not-allowed;
+.swiper-pagination-bullet-active {
+  background-color: var(--color-primary-hover);
 }
 
-/* Dark mode adjustments */
-[data-theme="dark"] .table th,
-[data-theme="dark"] .table td {
-  background-color: var(--color-bg-contrast);
-  color: var(--color-text-secondary);
-}
-
-[data-theme="dark"] .btn-primary {
-  background-color: var(--color-primary);
-  color: var(--color-text-primary);
-}
-
-[data-theme="dark"] .btn-danger {
-  background-color: var(--color-error);
-  color: var(--color-text-primary);
-}
-
-[data-theme="dark"] .pagination button {
-  background-color: var(--color-bg-contrast);
-  color: var(--color-text-primary);
+.reviews-carousel {
+  padding: 2rem;
 }

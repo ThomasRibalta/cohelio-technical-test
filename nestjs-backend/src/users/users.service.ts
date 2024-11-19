@@ -11,12 +11,13 @@ export class UsersService {
     return await this.userModel.findById(id);
   }
 
-  async getUsers({ page }) {
+  async getUsers({ page, sortby, order }) {
     if (!page || page < 1) {
       page = 1;
     }
     let clients = await this.userModel
       .find()
+      .sort({ [sortby]: order })
       .skip((page - 1) * 10)
       .limit(10)
       .select('-password');

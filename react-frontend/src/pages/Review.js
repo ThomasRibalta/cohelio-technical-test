@@ -1,10 +1,7 @@
 import React from "react";
 import Form from "../components/form/Form";
-import { useNavigate } from "react-router-dom";
 
-const NoticeForm = () => {
-  const navigate = useNavigate();
-
+const ReviewForm = () => {
   const fields = [
     {
       name: "improvements",
@@ -39,10 +36,10 @@ const NoticeForm = () => {
 
   return (
     <div>
-      <h2>Send your notice</h2>
-      <Form fields={fields} onSubmit={handleSubmit} buttonLabel="Send notice" />
+      <h2>Send your review</h2>
+      <Form fields={fields} onSubmit={handleSubmit} buttonLabel="Send review" />
     </div>
   );
 };
 
-export default NoticeForm;
+export default ReviewForm;
