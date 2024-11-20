@@ -1,34 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import StarRating from "../global/StarRating";
 import "./style.css";
 
 const Form = ({ fields, onSubmit, buttonLabel }) => {
-  const [formValues, setFormValues] = useState(
+  const [formValues, setFormValues] = useState(() =>
     fields.reduce((acc, field) => {
-      acc[field.name] = field.initialValue || "";
+      if (field.type === "checkbox") {
+        acc[field.name] = field.multiple
+          ? field.initialValue || []
+          : field.initialValue || false;
+      } else {
+        acc[field.name] = field.initialValue || field.value || "";
+      }
       return acc;
     }, {})
   );
 
+  useEffect(() => {
+    const updatedValues = fields.reduce((acc, field) => {
+      if (field.type === "checkbox") {
+        acc[field.name] = field.multiple
+          ? field.initialValue || []
+          : field.initialValue || false;
+      } else {
+        acc[field.name] = field.initialValue || field.value || "";
+      }
+      return acc;
+    }, {});
+    setFormValues(updatedValues);
+  }, [fields]);
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
-    if (type === "radio") {
-      setFormValues((prev) => ({
+    setFormValues((prev) => {
+      if (type === "checkbox" && Array.isArray(prev[name])) {
+        const updatedArray = checked
+          ? [...prev[name], value]
+          : prev[name].filter((item) => item !== value);
+        return { ...prev, [name]: updatedArray };
+      }
+      return {
         ...prev,
-        [name]: value,
-      }));
-    } else if (type === "checkbox") {
-      setFormValues((prev) => ({
-        ...prev,
-        [name]: checked,
-      }));
-    } else {
-      setFormValues((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    }
+        [name]: type === "checkbox" ? checked : value,
+      };
+    });
   };
 
   const handleStarChange = (name, value) => {
@@ -46,7 +62,7 @@ const Form = ({ fields, onSubmit, buttonLabel }) => {
   return (
     <form onSubmit={handleSubmit}>
       {fields.map((field) => (
-        <div key={field.name}>
+        <div key={field.name} className="form-group">
           <label htmlFor={field.name}>{field.label}</label>
 
           {field.type === "radio" ? (
@@ -75,6 +91,30 @@ const Form = ({ fields, onSubmit, buttonLabel }) => {
                 </option>
               ))}
             </select>
+          ) : field.type === "checkbox" && field.multiple ? (
+            field.options.map((option) => (
+              <div key={option.value}>
+                <input
+                  type="checkbox"
+                  id={`${field.name}_${option.value}`}
+                  name={field.name}
+                  value={option.value}
+                  checked={formValues[field.name].includes(option.value)}
+                  onChange={handleChange}
+                />
+                <label htmlFor={`${field.name}_${option.value}`}>
+                  {option.label}
+                </label>
+              </div>
+            ))
+          ) : field.type === "checkbox" ? (
+            <input
+              type="checkbox"
+              id={field.name}
+              name={field.name}
+              checked={formValues[field.name]}
+              onChange={handleChange}
+            />
           ) : field.type === "starRating" ? (
             <StarRating
               maxStars={field.maxStars || 5}

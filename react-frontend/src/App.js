@@ -13,6 +13,8 @@ import DashboardNavbar from "./components/layout/DashboardNavbar";
 import "./App.css";
 import AdminRoute from "./components/global/AdminRoute";
 import Reviews from "./pages/Reviews";
+import AdminPanel from "./pages/AdminPanel";
+import UpdateUser from "./pages/User";
 
 function App() {
   const { Auth } = useAuth();
@@ -29,13 +31,42 @@ function App() {
               path="/dashboard"
               element={
                 <AdminRoute Auth={Auth}>
-                  <h2>Admin Dashboard</h2>
+                  <AdminPanel />
                 </AdminRoute>
               }
             />
-            <Route path="/dashboard/users" element={<Users />} />
-            <Route path="/dashboard/reviews" element={<Reviews />} />
-            <Route path="/dashboard/*" element={<h2>Page Not Found</h2>} />
+            <Route
+              path="/dashboard/users"
+              element={
+                <AdminRoute Auth={Auth}>
+                  <Users />{" "}
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/dashboard/reviews"
+              element={
+                <AdminRoute Auth={Auth}>
+                  <Reviews />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/dashboard/user/:id"
+              element={
+                <AdminRoute Auth={Auth}>
+                  <UpdateUser />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/dashboard/*"
+              element={
+                <AdminRoute Auth={Auth}>
+                  <h2>Page Not Found</h2>
+                </AdminRoute>
+              }
+            />
           </Routes>
         </DashboardNavbar>
       ) : (

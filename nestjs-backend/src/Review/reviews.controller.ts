@@ -6,7 +6,7 @@ export class ReviewsController {
   constructor(private readonly reviewService: ReviewService) {}
 
   @Get()
-  async getNotices(
+  async getReviews(
     @Query('page') page = 1,
     @Query('sortby') sortby = 'createdAt',
     @Query('order') order = 'desc',

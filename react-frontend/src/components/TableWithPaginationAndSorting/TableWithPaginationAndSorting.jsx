@@ -64,43 +64,48 @@ const TableWithPaginationAndSorting = ({
       <table className="table">
         <thead>
           <tr>
-            {columns.map((col) => (
-              <th
-                key={col.accessor}
-                onClick={col.sortable ? () => handleSort(col.accessor) : null}
-                style={col.sortable ? { cursor: "pointer" } : null}
-              >
-                {col.header} {col.sortable && renderSortIcon(col.accessor)}
-              </th>
-            ))}
+            {columns &&
+              columns.map((col) => (
+                <th
+                  key={col.accessor}
+                  onClick={col.sortable ? () => handleSort(col.accessor) : null}
+                  style={col.sortable ? { cursor: "pointer" } : null}
+                >
+                  {col.header} {col.sortable && renderSortIcon(col.accessor)}
+                </th>
+              ))}
             {actions && <th>Actions</th>}
           </tr>
         </thead>
         <tbody>
-          {data.map((item) => (
-            <tr key={item[dataKey]}>
-              {columns.map((col) => (
-                <td key={col.accessor}>
-                  {col.accessor === "rate"
-                    ? renderStars(getNestedValue(item, col.accessor))
-                    : getNestedValue(item, col.accessor)}
-                </td>
-              ))}
-              {actions && (
-                <td>
-                  {actions.map((action) => (
-                    <button
-                      key={action.label}
-                      onClick={() => action.onClick(item[dataKey])}
-                      className={action.className}
-                    >
-                      {action.label}
-                    </button>
+          {data &&
+            data.map((item) => (
+              <tr key={item[dataKey]}>
+                {columns &&
+                  columns.map((col) => (
+                    <td key={col.accessor}>
+                      {col.accessor === "rate"
+                        ? renderStars(getNestedValue(item, col.accessor))
+                        : getNestedValue(item, col.accessor)}
+                    </td>
                   ))}
-                </td>
-              )}
-            </tr>
-          ))}
+                {actions && (
+                  <td>
+                    <div className="actions">
+                      {actions.map((action) => (
+                        <button
+                          key={action.label}
+                          onClick={() => action.onClick(item[dataKey])}
+                          className={action.className}
+                        >
+                          {action.label}
+                        </button>
+                      ))}
+                    </div>
+                  </td>
+                )}
+              </tr>
+            ))}
         </tbody>
       </table>
 

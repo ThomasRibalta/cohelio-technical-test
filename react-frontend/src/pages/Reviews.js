@@ -7,14 +7,17 @@ const Reviews = () => {
 
   const fetchReviews = async (page, sortType) => {
     const response = await fetch(
-      `http://localhost:3030/reviews?page=${page}&sortby=${sortType.key}&order=${sortType.order}`,
+      `http://localhost:3030/admin/reviews?page=${page}&sortby=${sortType.key}&order=${sortType.order}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
       }
     );
-    if (response.status !== 200) navigate("/dashboard");
+    if (response.status !== 200) {
+      navigate("/dashboard");
+      return { items: [], totalPages: 1 };
+    }
     const data = await response.json();
     return {
       items: data.response.reviews,
@@ -32,8 +35,23 @@ const Reviews = () => {
   const reviewActions = [
     {
       label: "Delete",
-      onClick: (id) => console.log(`Deleting review ${id}`),
-      className: "btn btn-danger btn-sm",
+      onClick: (id) => {
+        console.log(`Deleting review ${id}`);
+        fetch(`http://localhost:3030/review/${id}`, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Review deleted successfully", data);
+            navigate("/dashboard/reviews");
+          })
+          .catch((error) => {
+            console.error("Error deleting review", error);
+          });
+      },
+      className: "btn btn-danger btn-sm btn-review-delete",
     },
   ];
 

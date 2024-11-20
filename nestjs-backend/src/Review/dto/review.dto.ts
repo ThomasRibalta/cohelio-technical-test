@@ -9,7 +9,12 @@ import {
 } from 'class-validator';
 
 export class ReviewDto {
-  @IsIn(['Technical Support', 'Billing and Payments', 'Product Inquiries'])
+  @IsIn([
+    'Technical Support',
+    'Billing and Payments',
+    'Product Inquiries',
+    'Others',
+  ])
   type: string;
 
   @IsString()

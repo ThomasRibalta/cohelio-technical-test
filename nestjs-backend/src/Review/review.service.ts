@@ -43,4 +43,16 @@ export class ReviewService {
       200,
     );
   }
+
+  async deleteReviewById(id: string, user: any) {
+    if (!id) {
+      return new HttpException('Review ID is required', 400);
+    }
+    if (!user.role || user.role !== 'admin') {
+      return new HttpException('Unauthorized', 401);
+    }
+    await this.reviewModel.findByIdAndDelete(id);
+
+    return new HttpException({ success: 'Review successfully deleted !' }, 200);
+  }
 }

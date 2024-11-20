@@ -57,7 +57,12 @@ const SignupForm = () => {
       });
   };
 
-  return <Form fields={fields} onSubmit={handleSubmit} buttonLabel="Sign Up" />;
+  return (
+    <div className="content">
+      <h2>Sign Up</h2>
+      <Form fields={fields} onSubmit={handleSubmit} buttonLabel="Sign Up" />
+    </div>
+  );
 };
 
 export default SignupForm;

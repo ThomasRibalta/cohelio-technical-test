@@ -24,7 +24,7 @@ const Logout = () => {
         .then((data) => {
           if (data.status === 201 || data.status === 200) {
             logout();
-            navigate("/reviews");
+            navigate("/review");
           } else {
             navigate("/");
           }

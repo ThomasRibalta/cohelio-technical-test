@@ -3,8 +3,10 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
   Post,
   Put,
+  Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -22,21 +24,21 @@ export class ReviewController {
     return this.reviewService.createReview(createReviewDto, req.user);
   }
 
-  @Get()
+  @Get(':id')
   @UseGuards(JwtAuthGuard)
   async getReviewById() {
     return 'This action return one Review';
   }
 
-  @Put()
+  @Put(':id')
   @UseGuards(JwtAuthGuard)
   async updateReviewById() {
     return 'This action updates a Review';
   }
 
-  @Delete()
+  @Delete(':id')
   @UseGuards(JwtAuthGuard)
-  async deleteReviewById() {
-    return 'This action removes a Review';
+  async deleteReviewById(@Param('id') id: string, @Req() req: any) {
+    return this.reviewService.deleteReviewById(id, req.user);
   }
 }

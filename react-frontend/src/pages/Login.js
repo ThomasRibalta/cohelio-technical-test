@@ -52,9 +52,10 @@ const LoginForm = () => {
   };
 
   return (
-    <>
+    <div className="content">
+      <h2>Login</h2>
       <Form fields={fields} onSubmit={handleSubmit} buttonLabel="Login" />
-    </>
+    </div>
   );
 };
 

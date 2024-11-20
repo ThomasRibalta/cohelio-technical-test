@@ -1,3 +1,7 @@
+.btn {
+  width: 40%;
+}
+
 .btn-primary {
   background-color: var(--color-warning);
 }
@@ -19,7 +23,6 @@ button:hover {
   color: var(--color-bg-light);
 }
 
-/* Bouton de changement de thème */
 .theme-toggle {
   font-size: 1.5rem;
   background: none;
@@ -33,7 +36,6 @@ button:hover {
   color: var(--color-primary-hover);
 }
 
-/* Styles de la table */
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -61,7 +63,6 @@ button:hover {
   color: var(--color-text-secondary);
 }
 
-/* Pagination */
 .pagination {
   display: flex;
   justify-content: center;
@@ -90,4 +91,17 @@ button:hover {
   background-color: var(--color-bg-contrast);
   color: var(--color-text-secondary);
   cursor: not-allowed;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 910px) {
+  .btn {
+    width: 100%;
+  }
 }

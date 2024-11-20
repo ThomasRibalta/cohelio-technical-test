@@ -7,14 +7,17 @@ const Users = () => {
 
   const fetchUsers = async (page, sortType) => {
     const response = await fetch(
-      `http://localhost:3030/users?page=${page}&sortby=${sortType.key}&order=${sortType.order}`,
+      `http://localhost:3030/admin/users?page=${page}&sortby=${sortType.key}&order=${sortType.order}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
       }
     );
-    if (response.status !== 200) navigate("/dashboard");
+    if (response.status !== 200) {
+      navigate("/login");
+      return { items: {}, totalPages: 1 };
+    }
     const data = await response.json();
     return {
       items: data.response.clients,
@@ -31,12 +34,30 @@ const Users = () => {
   const userActions = [
     {
       label: "Edit",
-      onClick: (id) => console.log(`Editing user ${id}`),
+      onClick: (id) => {
+        console.log(`Editing user ${id}`);
+        navigate(`/dashboard/user/${id}`);
+      },
       className: "btn btn-primary btn-sm",
     },
     {
       label: "Delete",
-      onClick: (id) => console.log(`Deleting user ${id}`),
+      onClick: (id) => {
+        console.log(`Deleting user ${id}`);
+        fetch(`http://localhost:3030/user/${id}`, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("User deleted successfully", data);
+            navigate("/dashboard/users");
+          })
+          .catch((error) => {
+            console.error("Error deleting user", error);
+          });
+      },
       className: "btn btn-danger btn-sm",
     },
   ];

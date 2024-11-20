@@ -32,7 +32,7 @@ const Home = () => {
   }, [setReviews]);
 
   return (
-    <div className="reviews-carousel">
+    <div className="content">
       <h2 className="text-center">Client's reviews</h2>
       {reviews.length === 0 ? (
         <h2>No review found...</h2>

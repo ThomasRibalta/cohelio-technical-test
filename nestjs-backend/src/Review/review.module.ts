@@ -11,5 +11,6 @@ import { MongooseModule } from '@nestjs/mongoose';
   ],
   providers: [ReviewService],
   controllers: [ReviewController, ReviewsController],
+  exports: [MongooseModule],
 })
 export class ReviewModule {}
