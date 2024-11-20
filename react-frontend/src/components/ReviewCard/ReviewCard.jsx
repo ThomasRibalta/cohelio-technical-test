@@ -17,8 +17,11 @@ const ReviewCard = ({ Review }) => {
   return (
     <div className="review-card">
       <div className="review-card-header">
-        <img src="https://via.placeholder.com/150" alt="Avatar" />
-        <h3>{Review.client.username}</h3>
+        <div className="left">
+          <img src="https://via.placeholder.com/150" alt="Avatar" />
+          <h3>{Review.client.username}</h3>
+        </div>
+        <h3 className="type-container">{Review.type}</h3>
       </div>
       <div className="review-card-body">
         <p>{Review.content}</p>
