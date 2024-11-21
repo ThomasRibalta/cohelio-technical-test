@@ -5,9 +5,9 @@ import TableWithPaginationAndSorting from "../components/TableWithPaginationAndS
 const Users = () => {
   const navigate = useNavigate();
 
-  const fetchUsers = async (page, sortType) => {
+  const fetchUsers = async (page, sortType, filter) => {
     const response = await fetch(
-      `http://localhost:3030/admin/users?page=${page}&sortby=${sortType.key}&order=${sortType.order}`,
+      `http://localhost:3030/admin/users?page=${page}&sortby=${sortType.key}&order=${sortType.order}&only=${filter.only}&onlyname=${filter.onlyName}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -62,6 +62,17 @@ const Users = () => {
     },
   ];
 
+  const selecter = [
+    {
+      name: "role",
+      options: [
+        { label: "All", value: "" },
+        { label: "Admin", value: "admin" },
+        { label: "User", value: "user" },
+      ],
+    },
+  ];
+
   return (
     <div className="container">
       <h2>Users</h2>
@@ -70,6 +81,7 @@ const Users = () => {
         fetchData={fetchUsers}
         dataKey="_id"
         actions={userActions}
+        selecter={selecter}
       />
     </div>
   );

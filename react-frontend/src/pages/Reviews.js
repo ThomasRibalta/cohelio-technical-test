@@ -5,9 +5,9 @@ import TableWithPaginationAndSorting from "../components/TableWithPaginationAndS
 const Reviews = () => {
   const navigate = useNavigate();
 
-  const fetchReviews = async (page, sortType) => {
+  const fetchReviews = async (page, sortType, filter) => {
     const response = await fetch(
-      `http://localhost:3030/admin/reviews?page=${page}&sortby=${sortType.key}&order=${sortType.order}`,
+      `http://localhost:3030/admin/reviews?page=${page}&sortby=${sortType.key}&order=${sortType.order}&only=${filter.only}&onlyname=${filter.onlyName}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -30,6 +30,30 @@ const Reviews = () => {
     { header: "Service", accessor: "type", sortable: true },
     { header: "Content", accessor: "content", sortable: true },
     { header: "Rating", accessor: "rate", sortable: true },
+  ];
+
+  const selecter = [
+    {
+      name: "rate",
+      options: [
+        { value: "", label: "0" },
+        { value: "1", label: "1" },
+        { value: "2", label: "2" },
+        { value: "3", label: "3" },
+        { value: "4", label: "4" },
+        { value: "5", label: "5" },
+      ],
+    },
+    {
+      name: "type",
+      options: [
+        { label: "All", value: "" },
+        { label: "Technical Support", value: "Technical Support" },
+        { label: "Billing and Payments", value: "Billing and Payments" },
+        { label: "Product Inquiries", value: "Product Inquiries" },
+        { label: "Other", value: "Other" },
+      ],
+    },
   ];
 
   const reviewActions = [
@@ -63,6 +87,7 @@ const Reviews = () => {
         fetchData={fetchReviews}
         dataKey="_id"
         actions={reviewActions}
+        selecter={selecter}
       />
     </div>
   );

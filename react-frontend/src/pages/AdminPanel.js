@@ -71,14 +71,23 @@ const AdminPanel = () => {
             <CirclePourcent
               size={120}
               strokeWidth={10}
-              maxPercentage={(100 / 5) * 3.2}
+              maxPercentage={
+                stats && stats.reviewsStats && stats.reviewsStats[0]
+                  ? (100 / 5) * stats.reviewsStats[0].globalAvgRate.toFixed(1)
+                  : 0
+              }
               text={
-                stats && stats.reviewsStats
+                stats && stats.reviewsStats[0]
                   ? stats.reviewsStats[0].globalAvgRate.toFixed(1) + "/5"
                   : 0 + "/5"
               }
             />
-            <h4>total reviews: {stats.reviewsStats[0].totalReviews}</h4>
+            <h4>
+              total reviews:{" "}
+              {stats && stats.reviewsStats[0]
+                ? stats.reviewsStats[0].totalReviews
+                : 0}
+            </h4>
           </div>
           <div className="footer">
             {stats &&

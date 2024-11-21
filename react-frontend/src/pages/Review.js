@@ -13,7 +13,7 @@ const ReviewForm = () => {
         { label: "Technical Support", value: "Technical Support" },
         { label: "Billing and Payments", value: "Billing and Payments" },
         { label: "Product Inquiries", value: "Product Inquiries" },
-        { label: "Other", value: "other" },
+        { label: "Other", value: "Other" },
       ],
     },
     {
@@ -26,7 +26,7 @@ const ReviewForm = () => {
       name: "rate",
       label: "Rating",
       type: "starRating",
-      initialValue: "0",
+      initialValue: 1,
       maxStars: 5,
     },
   ];

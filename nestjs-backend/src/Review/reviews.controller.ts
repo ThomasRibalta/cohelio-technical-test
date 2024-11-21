@@ -11,6 +11,10 @@ export class ReviewsController {
     @Query('sortby') sortby = 'createdAt',
     @Query('order') order = 'desc',
   ) {
-    return await this.reviewService.getReviews({ page, sortby, order });
+    return await this.reviewService.getReviews({
+      page,
+      sortby,
+      order,
+    });
   }
 }

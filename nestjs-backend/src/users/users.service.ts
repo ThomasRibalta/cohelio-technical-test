@@ -3,6 +3,7 @@ import { User } from './schema/user.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
+import { on } from 'events';
 
 @Injectable()
 export class UsersService {
@@ -19,12 +20,16 @@ export class UsersService {
     return new HttpException(client, HttpStatus.OK);
   }
 
-  async getUsers({ page, sortby, order }) {
+  async getUsers({ page, sortby, order, only }) {
     if (!page || page < 1) {
       page = 1;
     }
+    if (only != null || !['admin', 'user'].includes(only)) {
+      only = null;
+    }
+
     let clients = await this.userModel
-      .find()
+      .find(only ? { role: only } : {})
       .sort({ [sortby]: order })
       .skip((page - 1) * 10)
       .limit(10)

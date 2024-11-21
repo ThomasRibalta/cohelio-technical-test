@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./TableWithPaginationAndSorting.css";
 
 const TableWithPaginationAndSorting = ({
+  selecter,
   columns,
   fetchData,
   dataKey,
@@ -10,14 +11,15 @@ const TableWithPaginationAndSorting = ({
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [filter, setFilter] = useState({ onlyName: null, only: null });
   const [sortType, setSortType] = useState({ key: "createdAt", order: "asc" });
 
   useEffect(() => {
-    fetchData(currentPage, sortType).then(({ items, totalPages }) => {
+    fetchData(currentPage, sortType, filter).then(({ items, totalPages }) => {
       setData(items);
       setTotalPages(totalPages);
     });
-  }, [fetchData, currentPage, sortType]);
+  }, [fetchData, currentPage, sortType, filter]);
 
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
@@ -59,8 +61,31 @@ const TableWithPaginationAndSorting = ({
     ));
   };
 
+  const handleFilterChange = (event, key) => {
+    setFilter(() => ({
+      only: event.target.value,
+      onlyName: key,
+    }));
+  };
+
   return (
     <div>
+      {selecter &&
+        selecter.map((select) => (
+          <div key={select.name} style={{ padding: 10 }}>
+            <h4>{select.name}</h4>
+            <select
+              key={select.name}
+              onChange={(event) => handleFilterChange(event, select.name)}
+            >
+              {select.options.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        ))}
       <table className="table">
         <thead>
           <tr>

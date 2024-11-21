@@ -6,6 +6,7 @@ import {
   IsIn,
   Min,
   Max,
+  IsInt,
 } from 'class-validator';
 
 export class ReviewDto {
@@ -13,7 +14,7 @@ export class ReviewDto {
     'Technical Support',
     'Billing and Payments',
     'Product Inquiries',
-    'Others',
+    'Other',
   ])
   type: string;
 
@@ -23,7 +24,7 @@ export class ReviewDto {
   @MaxLength(500)
   content: string;
 
-  @IsNotEmpty()
+  @IsInt()
   @Min(0)
   @Max(5)
   rate: number;

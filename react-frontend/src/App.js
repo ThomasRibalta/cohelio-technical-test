@@ -23,10 +23,11 @@ function App() {
 
   return (
     <div className="App">
-      {console.log(Auth, isDashboardRoute)}
       {isDashboardRoute ? (
         <DashboardNavbar>
-          <Routes>
+          <Routes
+            future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+          >
             <Route
               path="/dashboard"
               element={

@@ -2,6 +2,7 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Review } from './schema/review.schema';
+import { on } from 'events';
 
 @Injectable()
 export class ReviewService {
@@ -31,7 +32,6 @@ export class ReviewService {
       .sort({ [sortby]: order })
       .limit(10)
       .skip(10 * (page - 1))
-      .sort({ createdAt: -1 })
       .lean()
       .exec();
 

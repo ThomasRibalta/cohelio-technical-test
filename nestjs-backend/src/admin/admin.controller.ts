@@ -12,9 +12,18 @@ export class AdminController {
     @Query('page') page = 1,
     @Query('sortby') sortby = 'id',
     @Query('order') order = 'asc',
+    @Query('only') only = null,
+    @Query('onlyname') onlyname = null,
     @Req() req: any,
   ) {
-    return await this.adminService.getUsers({ page, sortby, order, req });
+    return await this.adminService.getUsers({
+      page,
+      sortby,
+      order,
+      req,
+      only,
+      onlyname,
+    });
   }
 
   @Get('/reviews')
@@ -23,9 +32,18 @@ export class AdminController {
     @Query('page') page = 1,
     @Query('sortby') sortby = 'createdAt',
     @Query('order') order = 'desc',
+    @Query('only') only = null,
+    @Query('onlyname') onlyname = null,
     @Req() req: any,
   ) {
-    return await this.adminService.getReviews({ page, sortby, order, req });
+    return await this.adminService.getReviews({
+      page,
+      sortby,
+      order,
+      req,
+      only,
+      onlyname,
+    });
   }
 
   @Get('/stats')

@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Review } from '../Review/schema/review.schema';
 import { User } from '../Users/schema/user.schema';
+import { on } from 'events';
 
 @Injectable()
 export class AdminService {
@@ -12,7 +13,7 @@ export class AdminService {
     @InjectModel('User') private readonly userModel: Model<User>,
   ) {}
 
-  async getReviews({ page, sortby, order, req }) {
+  async getReviews({ page, sortby, order, req, only, onlyname }) {
     if (!req.user.role || req.user.role !== 'admin') {
       return new HttpException('Unauthorized', 401);
     }
@@ -20,8 +21,18 @@ export class AdminService {
       return new HttpException('Page number must be greater than 0', 400);
     }
 
+    if (onlyname != null && !['rate', 'type'].includes(onlyname)) {
+      onlyname = null;
+    }
+
+    const filter = {};
+
+    if (only && onlyname) {
+      filter[onlyname] = only;
+    }
+
     const reviews = await this.reviewModel
-      .find()
+      .find(only && onlyname ? filter : {})
       .populate({
         path: 'client',
         select: 'email username',
@@ -29,7 +40,6 @@ export class AdminService {
       .sort({ [sortby]: order })
       .limit(10)
       .skip(10 * (page - 1))
-      .sort({ createdAt: -1 })
       .lean()
       .exec();
 
@@ -42,15 +52,26 @@ export class AdminService {
     );
   }
 
-  async getUsers({ page, sortby, order, req }) {
+  async getUsers({ page, sortby, order, req, only, onlyname }) {
     if (!req.user.role || req.user.role !== 'admin') {
       return new HttpException('Unauthorized', 401);
     }
     if (!page || page < 1) {
       page = 1;
     }
+
+    if (onlyname != null && !['role'].includes(onlyname)) {
+      onlyname = null;
+    }
+
+    const filter = {};
+
+    if (only && onlyname) {
+      filter[onlyname] = only;
+    }
+
     let clients = await this.userModel
-      .find()
+      .find(only && onlyname ? filter : {})
       .sort({ [sortby]: order })
       .skip((page - 1) * 10)
       .limit(10)

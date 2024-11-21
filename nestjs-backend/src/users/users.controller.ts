@@ -10,7 +10,8 @@ export class UsersController {
     @Query('page') page = 1,
     @Query('sortby') sortby = 'id',
     @Query('order') order = 'asc',
+    @Query('only') only = null,
   ) {
-    return await this.usersService.getUsers({ page, sortby, order });
+    return await this.usersService.getUsers({ page, sortby, order, only });
   }
 }
