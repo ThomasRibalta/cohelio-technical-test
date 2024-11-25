@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./StarRating.css";
 
-const StarRating = ({ onChange, maxStars = 5 }) => {
-  const [rating, setRating] = useState(0);
+const StarRating = ({ onChange, maxStars = 5, defaultRating = 1 }) => {
+  const [rating, setRating] = useState(defaultRating);
   const [hover, setHover] = useState(0);
 
   const handleClick = (value) => {

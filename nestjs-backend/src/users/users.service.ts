@@ -3,11 +3,14 @@ import { User } from './schema/user.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
-import { on } from 'events';
+import { Review } from 'src/Review/schema/review.schema';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel('User') private readonly userModel: Model<User>) {}
+  constructor(
+    @InjectModel('User') private readonly userModel: Model<User>,
+    @InjectModel('Review') private readonly reviewModel: Model<Review>,
+  ) {}
 
   async getUserById(id: string, user: any) {
     if (!id) {
@@ -76,6 +79,8 @@ export class UsersService {
     if (!user.role || user.role !== 'admin') {
       return new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
     }
-    return await this.userModel.findByIdAndDelete(id);
+    await this.reviewModel.deleteMany({ client: id });
+
+    return await this.userModel.findByIdAndDelete({ _id: id });
   }
 }
