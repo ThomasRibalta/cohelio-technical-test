@@ -7,7 +7,7 @@ const Users = () => {
 
   const fetchUsers = async (page, sortType, filter) => {
     const response = await fetch(
-      `http://localhost:3030/admin/users?page=${page}&sortby=${sortType.key}&order=${sortType.order}&only=${filter.only}&onlyname=${filter.onlyName}`,
+      `http://51.254.125.168:3030/admin/users?page=${page}&sortby=${sortType.key}&order=${sortType.order}&only=${filter.only}&onlyname=${filter.onlyName}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -44,7 +44,7 @@ const Users = () => {
       label: "Delete",
       onClick: (id) => {
         console.log(`Deleting user ${id}`);
-        fetch(`http://localhost:3030/user/${id}`, {
+        fetch(`http://51.254.125.168:3030/user/${id}`, {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           credentials: "include",

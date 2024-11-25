@@ -29,7 +29,7 @@ const SignupForm = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (formValues) => {
-    fetch("http://localhost:3030/auth/register", {
+    fetch("http://51.254.125.168:3030/auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -12,7 +12,7 @@ const Home = () => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3030/reviews`, {
+    fetch(`http://51.254.125.168:3030/reviews`, {
       method: "GET",
       credentials: "include",
     })

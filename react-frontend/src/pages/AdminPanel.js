@@ -8,7 +8,7 @@ const AdminPanel = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3030/admin/stats", {
+    fetch("http://51.254.125.168:3030/admin/stats", {
       method: "GET",
       credentials: "include",
     })

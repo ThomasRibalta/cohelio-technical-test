@@ -34,7 +34,7 @@ const ReviewForm = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (formValues) => {
-    fetch("http://localhost:3030/review", {
+    fetch("http://51.254.125.168:3030/review", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -7,7 +7,7 @@ const Reviews = () => {
 
   const fetchReviews = async (page, sortType, filter) => {
     const response = await fetch(
-      `http://localhost:3030/admin/reviews?page=${page}&sortby=${sortType.key}&order=${sortType.order}&only=${filter.only}&onlyname=${filter.onlyName}`,
+      `http://51.254.125.168:3030/admin/reviews?page=${page}&sortby=${sortType.key}&order=${sortType.order}&only=${filter.only}&onlyname=${filter.onlyName}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -61,7 +61,7 @@ const Reviews = () => {
       label: "Delete",
       onClick: (id) => {
         console.log(`Deleting review ${id}`);
-        fetch(`http://localhost:3030/review/${id}`, {
+        fetch(`http://51.254.125.168:3030/review/${id}`, {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           credentials: "include",

@@ -10,7 +10,7 @@ const UpdateUser = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:3030/user/${id}`, {
+    fetch(`http://51.254.125.168:3030/user/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -72,7 +72,7 @@ const UpdateUser = () => {
 
   const handleSubmit = (formValues) => {
     console.log("Updating user", formValues);
-    fetch(`http://localhost:3030/user/${id}`, {
+    fetch(`http://51.254.125.168:3030/user/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
