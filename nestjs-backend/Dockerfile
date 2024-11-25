@@ -16,7 +16,7 @@ COPY . .
 RUN npm install bcrypt
 
 # Étape 8 : Exposer le port utilisé par l'application
-EXPOSE 3000
+EXPOSE 3030
 
 # Étape 9 : Commande pour démarrer l'application
 CMD ["npm", "start"]

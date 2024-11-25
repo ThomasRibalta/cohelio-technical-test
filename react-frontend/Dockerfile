@@ -13,6 +13,8 @@ RUN npm install
 # Copie le reste de l'application
 COPY . .
 
+RUN npm install react-scripts --save
+
 # Expose le port sur lequel l'application va tourner (exemple : 3000)
 EXPOSE 3000
 
