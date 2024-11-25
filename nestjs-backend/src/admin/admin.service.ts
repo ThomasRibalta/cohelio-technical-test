@@ -3,8 +3,7 @@ import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Review } from '../Review/schema/review.schema';
-import { User } from '../Users/schema/user.schema';
-import { on } from 'events';
+import { User } from '../users/schema/user.schema';
 
 @Injectable()
 export class AdminService {
